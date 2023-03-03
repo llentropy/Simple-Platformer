@@ -9,13 +9,25 @@
 position = Vector2( 328, 289 )
 
 [node name="Block" parent="." instance=ExtResource( 2 )]
-position = Vector2( 328, 373 )
+position = Vector2( 288, 352 )
+
+[node name="Block5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 352, 352 )
 
 [node name="Block2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 235, 398 )
+position = Vector2( 224, 352 )
+
+[node name="Block6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 288, 32 )
+
+[node name="Block7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 352, 32 )
+
+[node name="Block8" parent="." instance=ExtResource( 2 )]
+position = Vector2( 224, 32 )
 
 [node name="Block3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 467, 348 )
+position = Vector2( 480, 289 )
 
 [node name="Block4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 121, 309 )
+position = Vector2( 96, 289 )
