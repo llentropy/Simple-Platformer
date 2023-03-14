@@ -49,7 +49,9 @@ aseprite_executable_path=""
 [display]
 
 window/size/width=640
-window/size/height=480
+window/size/height=640
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [editor_plugins]
 
@@ -111,4 +113,6 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

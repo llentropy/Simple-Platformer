@@ -48,9 +48,9 @@ func _physics_process(delta):
 		else :
 			animation_player.play("Idle")
 	
-	if motion.y > 0:
+	if motion.y * gravity > 0:
 		animation_player.play("Falling")
-	if motion.y < 0:
+	if motion.y * gravity < 0:
 		animation_player.play("Jumping")
 		
 func _input(event):
@@ -86,8 +86,11 @@ func get_direction():
 
 func calculate_velocity(delta):
 	var current_velocity = velocity
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		current_velocity.y += jump_speed * movement_direction.y
+	if Input.is_action_just_released("jump") and current_velocity.y /gravity < 0:
+		current_velocity.y *= 0.7
+		
 	current_velocity.x = movement_speed * movement_direction.x
 	if movement_direction.y != 0:
 		current_velocity.y += gravity * delta
