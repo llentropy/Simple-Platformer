@@ -35,7 +35,6 @@ func _physics_process(delta):
 	motion = velocity
 	motion = move_and_slide(motion * MAX_movement_speed, FLOOR_NORMAL)
 	
-	print(is_on_floor())
 	
 	if motion.x > 0:
 		sprite.flip_h = false
@@ -53,9 +52,11 @@ func _physics_process(delta):
 	if motion.y * gravity < 0:
 		animation_player.play("Jumping")
 		
+
 func _input(event):
 	if event.is_action_pressed("flip_gravity"):
 		flip_gravity()
+
 
 func flip_gravity():
 	gravity_flipped = true
@@ -72,11 +73,11 @@ func get_direction():
 	
 	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
-			vertical = -(gravity/abs(gravity))
+			vertical = -sign(gravity)
 		else:
 			vertical = 0
 	else:
-		vertical = gravity/abs(gravity)
+		vertical = sign(gravity)
 	
 
 	return Vector2(
