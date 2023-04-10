@@ -64,6 +64,7 @@ gravity=false
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+theme/custom_font="res://Fonts/EquipmentPro.tres"
 
 [input]
 

@@ -9,6 +9,7 @@ var is_jumping = false
 var is_jump_canceled = false
 var gravity_flipped = false
 
+onready var collected_scrolls = 0
 export var movement_speed = 1.5
 export var jump_speed = 3.5
 
@@ -26,15 +27,11 @@ func _ready():
 	animation_player.play("Idle")
 
 func _physics_process(delta):
-	var input_vector = Vector2.ZERO
-	
 	movement_direction = get_direction()
 
 	velocity = calculate_velocity(delta)
 
-	motion = velocity
-	motion = move_and_slide(motion * MAX_movement_speed, FLOOR_NORMAL)
-	
+	motion = move_and_slide(velocity * MAX_movement_speed, FLOOR_NORMAL)
 	
 	if motion.x > 0:
 		sprite.flip_h = false
@@ -98,3 +95,10 @@ func calculate_velocity(delta):
 	else :
 		current_velocity.y = 0
 	return current_velocity
+
+func collect_object(object):
+	if "Scroll" in object.name:
+		collected_scrolls += 1 
+		print(collected_scrolls)
+
+	
