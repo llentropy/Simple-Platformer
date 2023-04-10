@@ -16,22 +16,25 @@ export var jump_speed = 3.5
 const MAX_movement_speed = 200
 
 onready var gravity = ProjectSettings.get("physics/2d/default_gravity")
-onready var FLOOR_NORMAL = Vector2.UP
+onready var current_floor_normal = Vector2.UP
 
 onready var animation_player = $AnimationPlayer
 onready var body = $KinematicBody2D
 onready var sprite = $Sprite
 
+onready var room_entered_position = Vector2.ZERO
+
 
 func _ready():
 	animation_player.play("Idle")
+	room_entered_position = self.position
 
 func _physics_process(delta):
 	movement_direction = get_direction()
 
 	velocity = calculate_velocity(delta)
 
-	motion = move_and_slide(velocity * MAX_movement_speed, FLOOR_NORMAL)
+	motion = move_and_slide(velocity * MAX_movement_speed, current_floor_normal)
 	
 	if motion.x > 0:
 		sprite.flip_h = false
@@ -59,7 +62,7 @@ func flip_gravity():
 	gravity_flipped = true
 	sprite.flip_v = !sprite.flip_v
 	gravity = - gravity
-	FLOOR_NORMAL = -FLOOR_NORMAL
+	current_floor_normal = -current_floor_normal
 	velocity.y = 0
 
 func get_direction():
@@ -101,4 +104,5 @@ func collect_object(object):
 		collected_scrolls += 1 
 		print(collected_scrolls)
 
-	
+func update_last_entered_position():
+	room_entered_position = self.position

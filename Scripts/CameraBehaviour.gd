@@ -6,6 +6,7 @@ export var vertical_limit : int = 640
 
 onready var player = $"../Wizard"
 
+onready var grid_coordinate = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,9 +15,23 @@ func _ready():
 
 
 func _process(delta):
-	var x_pos = int(player.position.x)
-	var y_pos = int(player.position.y)
+	var grid_x = 0
+	var grid_y = 0
 
-	var grid_coordinate = Vector2((abs(x_pos) / horizontal_limit) * sign(x_pos), (abs(y_pos) / vertical_limit)*sign(y_pos))
-	self.position = Vector2(grid_coordinate.x * horizontal_limit + horizontal_limit/2*sign(x_pos), grid_coordinate.y * vertical_limit + vertical_limit/2*sign(y_pos))
+
+	grid_x = floor(player.position.x/horizontal_limit)
+	grid_y = floor(player.position.y/vertical_limit)
 	
+	var new_grid_coordinate = Vector2(grid_x, grid_y)
+
+	if grid_coordinate != new_grid_coordinate:
+		change_room(new_grid_coordinate)
+	
+	
+	
+func change_room(new_grid_coordinate):
+	grid_coordinate = new_grid_coordinate
+	var new_position = Vector2(grid_coordinate.x * horizontal_limit + horizontal_limit/2, grid_coordinate.y * vertical_limit + vertical_limit/2)
+
+	player.update_last_entered_position()
+	self.position = new_position

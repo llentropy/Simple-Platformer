@@ -31,5 +31,5 @@ func process_input_direction(direction):
 
 
 func _on_DirectionListCleanTimer_timeout():
-	print(directions_sequence) 
+	#print(directions_sequence) 
 	directions_sequence.clear()
