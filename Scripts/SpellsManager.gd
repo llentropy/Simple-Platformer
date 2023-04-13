@@ -7,11 +7,14 @@ onready var player = $".."
 var directions_sequence = []
 
 onready var spells_list = {
-	["up", "down", "up", "down"] : "flip_gravity"
+	["up", "down", "up", "down"] : "flip_gravity",
+	["right", "right", "up","right"] : "teleport_right",
+	["left", "left", "up","left"] : "teleport_left"
 }
 
 var directions = ["up", "down", "left", "right"]
 var event_string = "ui_%s"
+
 func _input(event):
 	for direction in directions:
 		if event.is_action_pressed(event_string % direction):
@@ -22,9 +25,7 @@ func process_input_direction(direction):
 	var got = spells_list.get(directions_sequence)
 	if got != null:
 		directions_sequence.clear()
-		match got:
-			"flip_gravity":
-				player.flip_gravity()
+		player.cast_spell(got)
 	timer.start(spell_check_time)
 	
 
