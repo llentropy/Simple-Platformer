@@ -29,8 +29,6 @@ func process_input_direction(direction):
 	timer.start(spell_check_time)
 	
 
-
-
 func _on_DirectionListCleanTimer_timeout():
 	#print(directions_sequence) 
 	directions_sequence.clear()

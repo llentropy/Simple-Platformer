@@ -1,7 +1,7 @@
 extends Sprite
 
 export var required_number_of_scrolls = 30
-onready var label = $UI/Label
+onready var label = $UI/HBoxContainer/Label
 
 func _ready():
 	$UI.visible = false

@@ -20,7 +20,7 @@ onready var gravity = ProjectSettings.get("physics/2d/default_gravity")
 onready var current_floor_normal = Vector2.UP
 
 onready var animation_player = $AnimationPlayer
-onready var body = $KinematicBody2D
+
 onready var sprite = $Sprite
 
 onready var room_entered_position = Vector2.ZERO
@@ -47,7 +47,8 @@ func _physics_process(delta):
 		
 	if is_on_floor():
 		if motion.x != 0:
-			animation_player.play("Running")
+			if not animation_player.current_animation == "Running":
+				animation_player.play("Running")
 		else :
 			animation_player.play("Idle")
 	

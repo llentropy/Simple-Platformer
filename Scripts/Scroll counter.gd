@@ -1,9 +1,9 @@
 extends RichTextLabel
 
 
-onready var Player = $"../../../Wizard"
+onready var Player = $"../../../../Wizard"
 
-onready var total_scrolls = $"../../../Scrolls".get_child_count()
+onready var total_scrolls = $"../../../../Scrolls".get_child_count()
 
 func _ready():
 	self.bbcode_text = " 0"

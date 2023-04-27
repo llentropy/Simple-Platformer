@@ -27,20 +27,27 @@ shape = SubResource( 2 )
 
 [node name="UI" type="Node2D" parent="."]
 
-[node name="Label" type="Label" parent="UI"]
-margin_left = -9.0
-margin_top = -60.0
-margin_right = 135.0
-margin_bottom = -28.0
-text = "x"
+[node name="HBoxContainer" type="GridContainer" parent="UI"]
+margin_left = -32.0
+margin_top = -85.0
+margin_right = 50.0
+margin_bottom = -21.0
+columns = 2
 
-[node name="TextureRect" type="TextureRect" parent="UI"]
-margin_left = -44.0
-margin_top = -60.0
-margin_right = 20.0
-margin_bottom = 4.0
-rect_scale = Vector2( 0.5, 0.5 )
+[node name="TextureRect" type="TextureRect" parent="UI/HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 64.0
 texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="UI/HBoxContainer"]
+margin_left = 68.0
+margin_top = 16.0
+margin_right = 82.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+text = "x"
+align = 1
+valign = 1
 
 [connection signal="body_entered" from="InteractableArea" to="." method="_on_InteractableArea_body_entered"]
 [connection signal="body_exited" from="InteractableArea" to="." method="_on_InteractableArea_body_exited"]
