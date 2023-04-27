@@ -1,7 +1,7 @@
 extends Sprite
 
 export var required_number_of_scrolls = 30
-onready var label = $UI/HBoxContainer/Label
+onready var label = $UI/Label
 
 func _ready():
 	$UI.visible = false
@@ -9,7 +9,7 @@ func _ready():
 func _on_InteractableArea_body_entered(body):
 	if body is Player:
 		var player_scrolls = body.collected_scrolls
-		label.text = " X %s/%s" %[player_scrolls, required_number_of_scrolls]
+		label.text = "%s/%s" %[player_scrolls, required_number_of_scrolls]
 		$UI.visible = true
 		if player_scrolls >= required_number_of_scrolls:
 			open_door()

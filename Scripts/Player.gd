@@ -20,6 +20,8 @@ onready var gravity = ProjectSettings.get("physics/2d/default_gravity")
 onready var current_floor_normal = Vector2.UP
 
 onready var animation_player = $AnimationPlayer
+onready var animation_tree = $AnimationTree
+onready var animation_mode = animation_tree.get("parameters/playback")
 
 onready var sprite = $Sprite
 
@@ -27,9 +29,11 @@ onready var room_entered_position = Vector2.ZERO
 
 var fames_since_teleport_attempt = 0
 
+
 func _ready():
-	animation_player.play("Idle")
+	animation_tree.set("parameters/Default/blend_position", Vector2.ZERO)
 	room_entered_position = self.position
+
 
 func _physics_process(delta):
 	
@@ -47,16 +51,16 @@ func _physics_process(delta):
 		
 	if is_on_floor():
 		if motion.x != 0:
-			if not animation_player.current_animation == "Running":
-				animation_player.play("Running")
+			animation_tree.set("parameters/Default/blend_position", Vector2(1, 0))
 		else :
-			animation_player.play("Idle")
+			animation_tree.set("parameters/Default/blend_position", Vector2.ZERO)
 	
 	if motion.y * gravity > 0:
-		animation_player.play("Falling")
+			animation_tree.set("parameters/Default/blend_position", Vector2(0, -1))
 	if motion.y * gravity < 0:
-		animation_player.play("Jumping")
-	
+			animation_tree.set("parameters/Default/blend_position", Vector2(0, 1))
+	var animation_motion = Vector2(motion.x, motion.y * gravity).normalized()
+
 
 func _input(event):
 	if event.is_action_pressed("cast_spell_flip_gravity"):
