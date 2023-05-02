@@ -16,6 +16,8 @@ export var teleport_distance = 128
 
 const MAX_movement_speed = 200
 
+onready var can_move : bool = true
+
 onready var gravity = ProjectSettings.get("physics/2d/default_gravity")
 onready var current_floor_normal = Vector2.UP
 
@@ -36,7 +38,9 @@ func _ready():
 
 
 func _physics_process(delta):
-	
+	if not can_move :
+		return
+		
 	fames_since_teleport_attempt += 1
 	movement_direction = get_direction()
 
@@ -63,6 +67,9 @@ func _physics_process(delta):
 
 
 func _input(event):
+	if event.is_action_pressed("flip_can_move"):
+		flip_can_move()
+	
 	if event.is_action_pressed("cast_spell_flip_gravity"):
 		cast_spell_flip_gravity()
 	if event.is_action_pressed("cast_spell_teleport"):
@@ -105,10 +112,8 @@ func cast_spell_teleport(direction):
 		elif direction == "left":
 			position.x -= teleport_distance
 	checkArea.position = Vector2(0,0)
-
-
-	#checkArea.queue_free()
-	#position.x += 128
+	freeze_movement_for_seconds(0.3)
+	turn_invisible_for_seconds(0.4)
 
 
 func get_direction():
@@ -143,6 +148,19 @@ func calculate_velocity(delta):
 	else :
 		current_velocity.y = 0
 	return current_velocity
+	
+func flip_can_move():
+	can_move = not can_move
+	
+func freeze_movement_for_seconds(seconds: float) -> void:
+	can_move = false
+	yield(get_tree().create_timer(seconds), "timeout")
+	can_move = true
+	
+func turn_invisible_for_seconds(seconds: float) -> void:
+	self.visible = false
+	yield(get_tree().create_timer(seconds), "timeout")
+	self.visible = true
 
 func collect_object(object):
 	if "Scroll" in object.name:
@@ -151,3 +169,10 @@ func collect_object(object):
 
 func update_last_entered_position():
 	room_entered_position = self.position
+	
+func warp_to_room_start():
+	self.position = room_entered_position
+	self.velocity = Vector2.ZERO
+	freeze_movement_for_seconds(0.3)
+	turn_invisible_for_seconds(0.4)
+
